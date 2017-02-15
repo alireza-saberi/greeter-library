@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-14 16:13:54
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 13:20:16
+* @Last Modified time: 2017-02-15 13:26:29
 */
 
 
@@ -180,6 +180,8 @@
         self.firstName = firstName || '';
         self.lastName = lastName || '';
         self.language = language || 'en';
+
+        self.validate();
     };
 
     // trick borrowed from jQuery so we don't have to use the 'new' keyword
