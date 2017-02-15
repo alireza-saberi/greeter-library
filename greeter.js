@@ -2,12 +2,12 @@
 * @Author: Ali
 * @Date:   2017-02-14 16:13:54
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 13:06:28
+* @Last Modified time: 2017-02-15 13:20:16
 */
+
 
 (function(global, $){
     'use strict';
-
     /**
      * Constructor for Greeter library and returns 'new' an object.
      *
