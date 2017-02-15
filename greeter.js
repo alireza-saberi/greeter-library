@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-14 16:13:54
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 09:26:18
+* @Last Modified time: 2017-02-15 11:42:25
 */
 
 (function(global, $){
@@ -75,8 +75,27 @@
         setLang: function(lang){
             this.language = lang;
             this.validate();
-            
+
             return this;
+        },
+
+        HTMLGreeting: function(selector, formal){
+            if(!$){
+                throw 'jQuery not loaded';
+            }
+
+            if(!selector){
+                throw 'Missing jQuery selector';
+            }
+
+            var msg;
+            if(formal){
+                msg = this.formalGreeting();
+            } else {
+                msg = this.greeting();
+            }
+
+            $(selector).html(msg);
         }
     };
 
