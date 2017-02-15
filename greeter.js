@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-14 16:13:54
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 13:26:29
+* @Last Modified time: 2017-02-15 18:41:31
 */
 
 
@@ -12,11 +12,11 @@
      * Constructor for Greeter library and returns 'new' an object.
      *
      * @class Greeter
-     * @constructor
      * @param {String} firstName        User first name
      * @param {String} lastName         User last name
      * @param {String} language         User prefered laguage
-     * 
+     * @return {Greeter.init}
+     * @version 1.0
      */
     var Greeter = function(firstName, lastName, language){
         return new Greeter.init(firstName, lastName, language);
@@ -51,6 +51,7 @@
         /**
          * provides full name by adding first and last name altogether
          *
+         * @memberof  Greeter
          * @return {String}
          */
         fullName: function(){
@@ -59,7 +60,7 @@
 
         /**
          * Check validation of the prefered language
-         *
+         * @memberof  Greeter
          */
         validate: function(){
             // references the externally inaccessible 'supportedLangs' within the closure
@@ -70,7 +71,7 @@
 
         /**
          * provides informal greeting
-         *
+         * @memberof  Greeter
          * @return {String}
          */
         greeting: function(){
@@ -80,7 +81,7 @@
 
         /**
          * provides fromal greeting
-         *
+         * @memberof  Greeter
          * @return {String}
          */
         formalGreeting: function(){
@@ -89,7 +90,7 @@
 
         /**
          * provides fromal greeting
-         *
+         * @memberof  Greeter
          * @param {String}  formal type of greeting,if undefined or null, it will be coerced to 'false'
          * @return {Greeter}     chainable methods return their own containing object
          */
@@ -111,7 +112,7 @@
 
         /**
          * provides console log. In older version of IE console.log make the page broken if the dev tool wasnt open
-         *
+         * @memberof  Greeter
          * @param {String}  formal type of greeting,if undefined or null, it will be coerced to 'false'
          * @return {Greeter}     chainable methods return their own containing object
          */
@@ -127,7 +128,7 @@
 
         /**
          * sets the language for the greeting
-         *
+         * @memberof  Greeter
          * @param {String}  lang    gets the prefered language
          * @return {Greeter}         chainable methods return their own containing object
          */
@@ -144,7 +145,7 @@
 
         /**
          * Combined with jQuery HTMLGreeting put the greeting message into DOM
-         *
+         * @memberof  Greeter
          * @param {Object}  selector    gets the selector object from selector
          * @param {String}  formal      
          * @return {Greeter}             chainable methods return their own containing object
@@ -174,7 +175,14 @@
         }
     };
 
-    // the actual object is created here, allowing us to 'new' an object without calling 'new'
+    /**
+     * the actual object is created here, allowing us to 'new' an object without calling 'new'
+     *
+     * @class Greeter.init
+     * @param {String} firstName        User first name
+     * @param {String} lastName         User last name
+     * @param {String} language         User prefered laguage
+     */
     Greeter.init = function(firstName, lastName, language){
         var self = this;
         self.firstName = firstName || '';
