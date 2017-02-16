@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-15 14:21:53
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 19:24:46
+* @Last Modified time: 2017-02-15 19:37:54
 */
 
 var gulp = require('gulp');
@@ -26,7 +26,7 @@ gulp.task('doc', function (cb) {
 });
 
 gulp.task('publish', ['doc'], function () {
-  ghpages.publish(path.join(__dirname, 'doc'), console.error);
+  ghpages.publish(path.join(__dirname, 'out'), console.error);
 });
 
 gulp.task('default', ['doc'], function () {
