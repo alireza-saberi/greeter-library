@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Source: greeter.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Greeter.html">Greeter</a></li><li><a href="Greeter.init.html">Greeter.init</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: greeter.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/*
+* @Author: Ali
+* @Date:   2017-02-14 16:13:54
+* @Last Modified by:   Ali
+* @Last Modified time: 2017-02-15 19:21:44
+*/
+
+
+(function(global, $){
+    'use strict';
+    /**
+     * Constructor for Greeter library and returns 'new' an object.
+     *
+     * @class Greeter
+     * @param {String} firstName        User first name
+     * @param {String} lastName         User last name
+     * @param {String} language         User prefered laguage
+     * @return {Greeter.init}
+     * @version 1.0
+     */
+    var Greeter = function(firstName, lastName, language){
+        return new Greeter.init(firstName, lastName, language);
+    };
+
+    // hidden within the scope of the IIFE and never directly accessible
+    var supportedLanguages = ['en', 'es'];
+
+    // informal greetings
+    var greeting = {
+        en: 'Hello',
+        es: 'Hola'
+    };
+
+    // formal greetings
+    var formalGreetings = {
+        en: 'Greting',
+        es: 'Saludos'
+    };
+
+    // logger messages
+    var logMessages = {
+        en: 'Logged in',
+        es: 'Inicio sesion'
+    };
+
+    // prototype holds methods (to save memory space)
+    Greeter.prototype = {
+
+        // 'this' refers to the calling object at execution time
+
+        /**
+         * provides full name by adding first and last name altogether
+         *
+         * @memberof  Greeter
+         * @return {String}
+         */
+        fullName: function(){
+            return this.firstName + '' + this.lastName;
+        },
+
+        /**
+         * Check validation of the prefered language
+         * @memberof  Greeter
+         */
+        validate: function(){
+            // references the externally inaccessible 'supportedLangs' within the closure
+            if (supportedLanguages.indexOf(this.language) == -1){
+                throw 'Invalid language';
+            }
+        },
+
+        /**
+         * provides informal greeting
+         * @memberof  Greeter
+         * @return {String}
+         */
+        greeting: function(){
+            return greeting[this.language] + '' + this.firstName + '!';
+        },
+
+
+        /**
+         * provides fromal greeting
+         * @memberof  Greeter
+         * @return {String}
+         */
+        formalGreeting: function(){
+            return formalGreetings[this.language] + ',' + this.fullName();
+        },
+
+        /**
+         * provides fromal greeting
+         * @memberof  Greeter
+         * @param {String}  formal type of greeting,if undefined or null, it will be coerced to 'false'
+         * @return {Greeter}     chainable methods return their own containing object
+         */
+        greet: function(fromal){
+            var msg;
+
+            if (fromal){
+                msg = this.formalGreeting();
+            } else {
+                msg = this.greeting();
+            }
+
+            if (global.console) {
+                console.log(msg);
+            }
+
+            return this;
+        },
+
+        /**
+         * provides console log. In older version of IE console.log make the page broken if the dev tool wasnt open
+         * @memberof  Greeter
+         * @param {String}  formal type of greeting,if undefined or null, it will be coerced to 'false'
+         * @return {Greeter}     chainable methods return their own containing object
+         */
+        log: function(){
+            if(global.console){
+                console.log(logMessages[this.language] + ': ' + this.fullName());
+            }
+
+            // 'this' refers to the calling object at execution time
+            // makes the method chainable
+            return this;
+        },
+
+        /**
+         * sets the language for the greeting
+         * @memberof  Greeter
+         * @param {String}  lang    gets the prefered language
+         * @return {Greeter}         chainable methods return their own containing object
+         */
+        setLang: function(lang){
+            // set the language
+            this.language = lang;
+
+            // validate
+            this.validate();
+            
+            // make chainable
+            return this;
+        },
+
+        /**
+         * Combined with jQuery HTMLGreeting put the greeting message into DOM
+         * @memberof  Greeter
+         * @param {Object}  selector    gets the selector object from selector
+         * @param {String}  formal      
+         * @return {Greeter}             chainable methods return their own containing object
+         */
+        HTMLGreeting: function(selector, formal){
+            if(!$){
+                throw 'jQuery not loaded';
+            }
+
+            if(!selector){
+                throw 'Missing jQuery selector';
+            }
+
+            // determine the message
+            var msg;
+            if(formal){
+                msg = this.formalGreeting();
+            } else {
+                msg = this.greeting();
+            }
+
+            // inject the message in the chosen place in the DOM
+            $(selector).html(msg);
+
+            // make chainable
+            return this;
+        }
+    };
+
+    /**
+     * the actual object is created here, allowing us to 'new' an object without calling 'new'
+     *
+     * @class Greeter.init
+     * @param {String} firstName        User first name
+     * @param {String} lastName         User last name
+     * @param {String} language         User prefered laguage
+     */
+    Greeter.init = function(firstName, lastName, language){
+        var self = this;
+        self.firstName = firstName || '';
+        self.lastName = lastName || '';
+        self.language = language || 'en';
+
+        self.validate();
+    };
+
+    // trick borrowed from jQuery so we don't have to use the 'new' keyword
+    Greeter.init.prototype = Greeter.prototype;
+
+    // attach our Greetr to the global object, and provide a shorthand '$G' for ease our poor fingers
+    global.Greeter = global.G$ = Greeter;
+
+}(window, jQuery));
+
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Alireza Saberi 2017
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	
+		on Wed Feb 15th 2017
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
