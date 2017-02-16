@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-14 16:13:54
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 18:41:31
+* @Last Modified time: 2017-02-15 19:21:44
 */
 
 
@@ -103,7 +103,7 @@
                 msg = this.greeting();
             }
 
-            if (console) {
+            if (global.console) {
                 console.log(msg);
             }
 
@@ -117,7 +117,7 @@
          * @return {Greeter}     chainable methods return their own containing object
          */
         log: function(){
-            if(console){
+            if(global.console){
                 console.log(logMessages[this.language] + ': ' + this.fullName());
             }
 
