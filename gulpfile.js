@@ -2,7 +2,7 @@
 * @Author: Ali
 * @Date:   2017-02-15 14:21:53
 * @Last Modified by:   Ali
-* @Last Modified time: 2017-02-15 19:37:54
+* @Last Modified time: 2017-02-15 19:46:49
 */
 
 var gulp = require('gulp');
@@ -14,7 +14,6 @@ var eslint = require('gulp-eslint');
 
 gulp.task('lint', function () {
   return gulp.src('./greeter.js')
-    .pipe(eslint({configFile: 'eslint.json'}))
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
@@ -26,7 +25,7 @@ gulp.task('doc', function (cb) {
 });
 
 gulp.task('publish', ['doc'], function () {
-  ghpages.publish(path.join(__dirname, 'out'), console.error);
+    ghpages.publish(path.join(__dirname, 'out'), console.error);
 });
 
 gulp.task('default', ['doc'], function () {
